@@ -140,9 +140,13 @@ with vision.HandLandmarker.create_from_options(options) as detector:
                 middle_extended = fingers[2]
                 ring_extended = fingers[3]
                 pinky_extended = fingers[4] 
-               
-                #print(f"Polegar: {fingers[0]}, Indicador: {fingers[1]}, Médio: {fingers[2]}, Anelar: {fingers[3]}, Mindinho: {fingers[4]}, num de dedos levantados: {fingers_counter}")
 
+                # Coracao
+                #p3 = np.array([int(hand_landmarks[3].x * w), int(hand_landmarks[3].y * h)])
+                #p7 = np.array([int(hand_landmarks[7].x * w), int(hand_landmarks[7].y * h)])
+                #d_fds = np.linalg.norm(p3 - p7)
+                #print(d_fds)
+               
                 # Ok
                 coordinates_thumb_ft = np.array([int(hand_landmarks[4].x * w), int(hand_landmarks[4].y * h)])
                 coordinates_index_ft = np.array([int(hand_landmarks[8].x * w), int(hand_landmarks[8].y * h)])
@@ -153,9 +157,9 @@ with vision.HandLandmarker.create_from_options(options) as detector:
                     print("Ok")
 
                 # Hi-Five
-                # hifive_detected = thumb_extended and index_extended and middle_extended and ring_extended and pinky_extended
-                # if hifive_detected:
-                #    print("Hi-Five")
+                hifive_detected = thumb_extended and index_extended and middle_extended and ring_extended and pinky_extended
+                if hifive_detected:
+                    print("Hi-Five")
 
                 # Hang-Loose
                 hangloose_detected = thumb_extended and not index_extended and not middle_extended and not ring_extended and pinky_extended
@@ -171,6 +175,11 @@ with vision.HandLandmarker.create_from_options(options) as detector:
                 rock_detected = thumb_extended and index_extended and not middle_extended and not ring_extended and pinky_extended
                 if rock_detected:
                     print("Rock")
+
+                # Middle finger
+                middle_finger_detected = thumb_extended and not index_extended and middle_extended and not ring_extended and not pinky_extended
+                if middle_finger_detected:
+                    print("Middle finger")
 
                 # Thumbs Up
                 coordinates_thumb_fb = np.array([int(hand_landmarks[2].x * w), int(hand_landmarks[2].y * h)])
