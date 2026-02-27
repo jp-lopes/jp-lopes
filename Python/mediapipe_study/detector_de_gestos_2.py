@@ -31,6 +31,9 @@ def draw_hand_landmarks(hand_landmarks, frame, landmarks_color=(0, 255, 0), conn
 
 def main():
     cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error while opening the camera.")
+        return
 
     options = vision.HandLandmarkerOptions(
         base_options=mp.tasks.BaseOptions(model_asset_path='hand_landmarker.task'),
@@ -39,7 +42,6 @@ def main():
     )
 
     up_vector = np.array([0,-1])
-    right_vector = np.array([1,0])
 
     with vision.HandLandmarker.create_from_options(options) as detector:
 
@@ -49,6 +51,7 @@ def main():
                 break
 
             h, w, _ = frame.shape
+
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
             timestamp_ms = int(time.monotonic() * 1000)
