@@ -9,7 +9,6 @@ import time
 import numpy as np
 from math import acos, degrees
 
-
 def draw_hand_landmarks(hand_landmarks, frame, landmarks_color=(0, 255, 0), connections_color=(255, 0, 0)):
     h, w, _ = frame.shape
     for landmark in hand_landmarks:
@@ -51,7 +50,6 @@ def main():
                 break
 
             h, w, _ = frame.shape
-
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
             timestamp_ms = int(time.monotonic() * 1000)
@@ -184,7 +182,7 @@ def main():
                 if current_hand_gesture is not None:
                     print(current_hand_gesture)
 
-            frame = cv2.flip(frame, 1)
+            frame = cv2.flip(frame,1)
             cv2.imshow("Hand Gestures Detection", frame)
 
             if cv2.waitKey(1) == ord('q'):
